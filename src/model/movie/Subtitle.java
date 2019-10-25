@@ -4,5 +4,6 @@ public enum Subtitle {
     English,
     Mandarin,
     Malay,
-    Tamil
+    Tamil,
+    None
 }

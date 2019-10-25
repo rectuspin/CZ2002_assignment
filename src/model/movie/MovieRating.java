@@ -1,20 +1,21 @@
 package model.movie;
 
 public enum MovieRating {
-    NullRating(0),
-    One(1),
-    Two(2),
-    Three(3),
-    Four(4),
-    Five(5);
+    G("General"),
+    PG("Parental Guidance"),
+    PG13("Parental Guidance 13 years and below"),
+    NC16("No children under 16"),
+    M18("Mature 18"),
+    R21("Restricted 21");
 
-    private final int movieRating;
 
-    MovieRating(int movieRating) {
-        this.movieRating = movieRating;
+    private String description;
+
+    MovieRating(String description) {
+        this.description = description;
     }
 
-    public int getMovieRatingCode() {
-        return movieRating;
+    public String toString() {
+        return description;
     }
 }

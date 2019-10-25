@@ -1,4 +1,2 @@
-package test;
+//package test;
 
-public class CineplexTest {
-}

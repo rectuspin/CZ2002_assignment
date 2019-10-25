@@ -1,8 +1,9 @@
 package model.cinema;
 
 public enum CinemaType {
-    NORMAL("normal"),
-    PLATINUM_MOVIE_SUITES("platinum");
+    STANDARD("Standard"),
+    PLATINUM_MOVIE_SUITES("Suites"),
+    IMAX("IMAX");
 
     private String name;
 

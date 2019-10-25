@@ -14,10 +14,10 @@ public class Seat {
     }
 
     public String toString() {
-        return isOccupied ? "[ ]" : "[X]";
+        return isOccupied ? "[X]" : "[ ]";
     }
 
-    private boolean makeBooking() {
+    public boolean makeBooking() {
         if (!isOccupied) {
             isOccupied = true;
             return true;
@@ -25,7 +25,7 @@ public class Seat {
         return false;
     }
 
-    private boolean cancelBooking() {
+    public boolean cancelBooking() {
         if (isOccupied) {
             isOccupied = false;
             return true;
