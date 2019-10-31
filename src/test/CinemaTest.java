@@ -4,13 +4,11 @@ import model.account.Admin;
 import model.cinema.Cinema;
 import model.cinema.CinemaType;
 import model.cinema.Cineplex;
-import model.cinema.Seat;
 import service.AdminCineplexService;
 import service.MovieGoerCineplexService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 public class CinemaTest {
     public static void main(String[] args) {
@@ -45,20 +43,8 @@ public class CinemaTest {
 //        adminCineplexService.addShowTime(movie, LocalDate.now(), LocalTime.of(11,30),  );
 
         HashMap<String, Cineplex> cineplexes = adminCineplexService.getCineplexes();
-        Set<String> cineplexNames = cineplexes.keySet();
-        for (String name : cineplexNames) {
-            System.out.println(name + ": ");
-            Cineplex cineplex = cineplexes.get(name);
-            for (Cinema cinema : cineplex.getCinemas()) {
-                System.out.println(cinema);
-                HashMap<Character, Seat[]> cinemaLayout = cinema.getCinemaLayout();
-                for (char row = 'A'; row <= cinema.getMaxRow(); row++) {
-                    for (int col = 0; col < cinema.getMaxCol(); col++) {
-                        System.out.print(cinemaLayout.get(row)[col]);
-                    }
-                    System.out.println();
-                }
-            }
+        for (Cinema cinema : cinemaArrayList) {
+            movieGoerCineplexService.showAvailableSeats(cinema);
         }
 
 

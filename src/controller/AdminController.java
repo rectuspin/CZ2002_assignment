@@ -1,5 +1,5 @@
 package controller;
 
-public class AdminController {
+public class AdminController extends BaseController {
 
 }

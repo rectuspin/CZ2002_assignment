@@ -1,5 +1,6 @@
 package service;
 
+import model.cinema.Cinema;
 import model.cinema.Cineplex;
 import model.cinema.Seat;
 import model.cinema.ShowTime;
@@ -8,6 +9,8 @@ import model.movie.Movie;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 public class MovieGoerCineplexService {
 
@@ -21,7 +24,7 @@ public class MovieGoerCineplexService {
         LocalDate today = LocalDate.now();
         LocalDate threeDaysLater = today.plusDays(3);
         ArrayList<ShowTime> nextThreeDays = new ArrayList<>();
-        for (; !today.equals(threeDaysLater); today.plusDays(1)) {
+        for (; !today.equals(threeDaysLater); today = today.plusDays(1)) {
             for (Cineplex cineplex : cineplexes) {
                 ArrayList<ShowTime> showTimes = cineplex.getShowTimes().get(today);
                 for (ShowTime showTime : showTimes) {
@@ -54,11 +57,89 @@ public class MovieGoerCineplexService {
 
     public void showAvailableSeats(ShowTime showTime) {
         HashMap<Character, Seat[]> layout = showTime.getSeatLayout();
-        for (char row = 'A'; row <= 'J'; row++) {
-            Seat[] seats = layout.get(row);
-            for (int i = 0; i < seats.length; i++) {
-                System.out.println(seats[i]);
-            }
+        TreeSet<Character> rows = new TreeSet<>(layout.keySet());
+        Iterator<Character> it = rows.descendingIterator();
+        int rowLength = layout.get('A').length;
+//        int length = rows.size() * 3
+        for (int i = 0; i < rowLength / 2; i++) {
+            System.out.print("===");
         }
+        System.out.print("  S C R E E N  ");
+        for (int i = rowLength / 2; i < rowLength - 1; i++) {
+            System.out.print("===");
+        }
+        System.out.print("\n\n");
+
+
+        while (it.hasNext()) {
+            Character row = it.next();
+            Seat[] seats = layout.get(row);
+            System.out.print(row + "  ");
+            for (int i = 0; i < seats.length / 2; i++) {
+                System.out.print(seats[i]);
+            }
+            for (int i = 0; i < 3; i++) {
+                System.out.print("   ");
+            }
+            for (int i = seats.length / 2; i < seats.length; i++) {
+                System.out.print(seats[i]);
+            }
+            System.out.println();
+        }
+        System.out.print("\n\n");
+
+        for (int i = 0; i < rowLength / 2 - 1; i++) {
+            System.out.print("   ");
+        }
+        System.out.print(" | E N T R A N C E |");
+
+        System.out.print("\n\n\n\n");
     }
+
+
+    public void showAvailableSeats(Cinema cinema) {
+        HashMap<Character, Seat[]> layout = cinema.getCinemaLayout();
+        TreeSet<Character> rows = new TreeSet<>(layout.keySet());
+        Iterator<Character> it = rows.descendingIterator();
+        int rowLength = layout.get('A').length;
+//        int length = rows.size() * 3
+        for (int i = 0; i < rowLength / 2; i++) {
+            System.out.print("===");
+        }
+        System.out.print("  S C R E E N  ");
+        for (int i = rowLength / 2; i < rowLength - 1; i++) {
+            System.out.print("===");
+        }
+        System.out.print("\n\n");
+
+
+        while (it.hasNext()) {
+            Character row = it.next();
+            Seat[] seats = layout.get(row);
+            System.out.print(row + "  ");
+            for (int i = 0; i < seats.length / 2; i++) {
+                System.out.print(seats[i]);
+            }
+            for (int i = 0; i < 3; i++) {
+                System.out.print("   ");
+            }
+            for (int i = seats.length / 2; i < seats.length; i++) {
+                System.out.print(seats[i]);
+            }
+            System.out.println();
+        }
+        System.out.print("\n\n");
+
+        for (int i = 0; i < rowLength / 2 - 1; i++) {
+            System.out.print("   ");
+        }
+        System.out.print(" | E N T R A N C E |");
+
+        System.out.print("\n\n\n\n");
+
+    }
+
+
+
+
 }

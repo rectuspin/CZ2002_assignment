@@ -8,8 +8,10 @@ import model.movie.Subtitle;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class ShowTime {
+    private UUID uuid;
 
     private Movie movie;
 
