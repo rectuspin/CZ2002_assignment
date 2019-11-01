@@ -1,43 +1,60 @@
 package model.transaction;
 
+import model.account.Customer;
 import model.cinema.Cinema;
 import model.cinema.Cineplex;
 import model.cinema.Seat;
+import model.cinema.ShowTime;
 import model.movie.Movie;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+
+import static controller.TicketPriceController.isHoliday;
+import static controller.TicketPriceController.isWeekend;
 
 public class Booking {
-    private BigDecimal price;
+    private double price;
+    private String transactionID;
+    private Customer customer;
     private LocalDate dateOfBooking;
     private LocalTime timeOfBooking;
+    private ShowTime showTime;
     private Cineplex cineplex;
     private Cinema cinema;
     private Movie movie;
     private Seat[] seats;
+    private ArrayList<Ticket> tickets = new ArrayList<>();
 
     private float discount = 0;
 
-    public Booking(float price, LocalDate dateOfBooking, LocalTime timeOfBooking, Cineplex cineplex, Cinema cinema, Movie movie, Seat[] seats) {
-        this.price = BigDecimal.valueOf(price);
+    public Booking(LocalDate dateOfBooking, LocalTime timeOfBooking, ShowTime showTime, Seat[] seats, Customer customer) {
         this.dateOfBooking = dateOfBooking;
         this.timeOfBooking = timeOfBooking;
-        this.cineplex = cineplex;
-        this.cinema = cinema;
-        this.movie = movie;
+        this.showTime = showTime;
         this.seats = seats;
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hhmm");
+        this.transactionID = "CUS" + this.dateOfBooking.format(dateFormat) + this.timeOfBooking.format(timeFormat);
+        this.customer = customer;
     }
 
-    public BigDecimal getPrice() {
+    public void makeBooking() {
+        tickets.add(new Ticket(movie, showTime.getMovieType(), cinema.getCinemaType()));
+    }
+
+    public ArrayList<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public double getPrice(LocalDate date) {
+        for (Ticket ticket : tickets) {
+            price += ticket.getTicketCharges(showTime.getMovieType(), cinema.getCinemaType(), isHoliday(date), isWeekend(date));
+        }
         return price;
     }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
     public LocalDate getDateOfBooking() {
         return dateOfBooking;
     }
@@ -85,4 +102,6 @@ public class Booking {
     public void setDiscount(float discount) {
         this.discount = discount;
     }
+
+
 }

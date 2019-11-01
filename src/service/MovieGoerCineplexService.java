@@ -23,6 +23,7 @@ public class MovieGoerCineplexService {
     public ArrayList<ShowTime> getShowTimes(Cineplex[] cineplexes, Movie movie) {
         LocalDate today = LocalDate.now();
         LocalDate threeDaysLater = today.plusDays(3);
+
         ArrayList<ShowTime> nextThreeDays = new ArrayList<>();
         for (; !today.equals(threeDaysLater); today = today.plusDays(1)) {
             for (Cineplex cineplex : cineplexes) {

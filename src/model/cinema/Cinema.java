@@ -63,6 +63,14 @@ public class Cinema {
         return maxCol;
     }
 
+    public CinemaType getCinemaType() {
+        return cinemaType;
+    }
+
+    public void setCinemaType(CinemaType cinemaType) {
+        this.cinemaType = cinemaType;
+    }
+
     @Override
     public String toString() {
         return "Cinema{" +
