@@ -1,6 +1,8 @@
 package model.cinema;
 
-public class Seat {
+import model.Model;
+
+public class Seat implements Model {
 
     private boolean isOccupied = false;
     private Cinema cinema;

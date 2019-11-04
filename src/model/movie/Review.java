@@ -1,8 +1,10 @@
 package model.movie;
 
+import model.Model;
+
 import java.time.LocalDateTime;
 
-public class Review {
+public class Review implements Model {
     LocalDateTime timestamp;
     Integer rating;
     String review = null;

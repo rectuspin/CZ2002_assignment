@@ -1,7 +1,7 @@
 package controller;
 
 import model.cinema.CinemaType;
-import model.movie.MovieType;
+import model.movie.MovieEnums;
 
 import static controller.TicketPriceController.getPublicHolidayCharges;
 import static controller.TicketPriceController.getWeekendCharges;
@@ -14,9 +14,9 @@ public class TicketPriceMenu {
                 "                         Select Movie Type                         \n" +
                 "====================================================================\n");
         int backNo = 0;
-        for (int i = 0; i < MovieType.values().length; i++) {
-            System.out.println(i + 1 + ". " + MovieType.values()[i] +
-                    " (Current Charges: " + String.format("%.2f", MovieType.values()[i].getTicketPrice()) + ")");
+        for (int i = 0; i < MovieEnums.MovieType.values().length; i++) {
+            System.out.println(i + 1 + ". " + MovieEnums.MovieType.values()[i] +
+                    " (Current Charges: " + String.format("%.2f", MovieEnums.MovieType.values()[i].getTicketPrice()) + ")");
             backNo++;
         }
         System.out.println(backNo + 1 +

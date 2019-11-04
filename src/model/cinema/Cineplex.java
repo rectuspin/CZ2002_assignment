@@ -1,10 +1,12 @@
 package model.cinema;
 
+import model.Model;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Cineplex {
+public class Cineplex implements Model {
     private String name;
     private ArrayList<Cinema> cinemas;
     private HashMap<LocalDate, ArrayList<ShowTime>> showTimes;

@@ -1,5 +1,6 @@
 package model.transaction;
 
+import model.Model;
 import model.account.Customer;
 import model.cinema.Cinema;
 import model.cinema.Cineplex;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import static controller.TicketPriceController.isHoliday;
 import static controller.TicketPriceController.isWeekend;
 
-public class Booking {
+public class Booking implements Model {
     private double price;
     private String transactionID;
     private Customer customer;

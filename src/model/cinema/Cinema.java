@@ -1,8 +1,10 @@
 package model.cinema;
 
+import model.Model;
+
 import java.util.HashMap;
 
-public class Cinema {
+public class Cinema implements Model {
 //    private static final Scanner scanner = new Scanner(System.in);
 
 //    private UUID uuid;

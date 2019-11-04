@@ -1,10 +1,11 @@
 package model.account;
 
+import model.Model;
 import model.transaction.Booking;
 
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Model {
     private String customerName;
     private String email;
     private int mobileNumber;

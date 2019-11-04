@@ -1,7 +1,7 @@
 package controller;
 
 import model.cinema.CinemaType;
-import model.movie.MovieType;
+import model.movie.MovieEnums;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -29,14 +29,14 @@ public class TicketPriceController {
             Scanner in = new Scanner(System.in);
             System.out.print("Option: ");
             int opt = in.nextInt();
-            if (0 < opt && opt <= MovieType.values().length) {
+            if (0 < opt && opt <= MovieEnums.MovieType.values().length) {
                 //Input the amount for the extra charges
                 System.out.print("Extra Charges Amount: ");
                 double charges = in.nextDouble();
                 //Sets the charges for each movie type
                 setMovieTypeCharges(opt, charges);
                 System.out.println("[System: Movie Type Charges Set Successfully]");
-            } else if (opt == MovieType.values().length + 1) {
+            } else if (opt == MovieEnums.MovieType.values().length + 1) {
                 return;
             } else {
                 System.out.println("[System: Invalid Input]");
@@ -144,7 +144,7 @@ public class TicketPriceController {
 
     //Sets the additional charges for a specified movie type
     public static void setMovieTypeCharges(int opt, double prices) {
-        MovieType.values()[opt - 1].setTicketPrice(prices);
+        MovieEnums.MovieType.values()[opt - 1].setTicketPrice(prices);
     }
 
     //Sets the additional charges for a specified cinema type

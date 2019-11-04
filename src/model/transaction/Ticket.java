@@ -1,26 +1,27 @@
 package model.transaction;
 
 import controller.TicketPriceController;
+import model.Model;
 import model.cinema.CinemaType;
 import model.movie.Movie;
-import model.movie.MovieType;
+import model.movie.MovieEnums;
 
 import static controller.TicketPriceController.getBasePrice;
 
-public class Ticket {
+public class Ticket implements Model {
     private Movie movie;
-    private MovieType movieType;
+    private MovieEnums.MovieType movieType;
     private CinemaType cinemaType;
     private double basePrice;
 
-    public Ticket(Movie movie, MovieType movieType, CinemaType cinemaType) {
+    public Ticket(Movie movie, MovieEnums.MovieType movieType, CinemaType cinemaType) {
         this.movie = movie;
         this.movieType = movieType;
         this.cinemaType = cinemaType;
         this.basePrice = getBasePrice();
     }
 
-    public double getTicketCharges(MovieType movieType, CinemaType cinemaType, boolean isHoliday, boolean isWeekend) {
+    public double getTicketCharges(MovieEnums.MovieType movieType, CinemaType cinemaType, boolean isHoliday, boolean isWeekend) {
         double ticketPrice = basePrice;
         ticketPrice += cinemaType.getTicketPrice();
         ticketPrice += movieType.getTicketPrice();
@@ -36,7 +37,7 @@ public class Ticket {
         return movie;
     }
 
-    public MovieType getMovieType() {
+    public MovieEnums.MovieType getMovieType() {
         return movieType;
     }
 

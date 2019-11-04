@@ -1,13 +1,12 @@
 package service;
 
+import controller.DBController;
 import model.account.Admin;
 import model.cinema.Cinema;
 import model.cinema.Cineplex;
 import model.cinema.ShowTime;
-import model.movie.Language;
 import model.movie.Movie;
-import model.movie.MovieType;
-import model.movie.Subtitle;
+import model.movie.MovieEnums;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +15,8 @@ import java.util.HashMap;
 
 public class AdminCineplexService {
     private Admin admin;
+    private DBController dbController = DBController.getInstance();
+
 
     public AdminCineplexService(Admin admin) {
         this.admin = admin;
@@ -30,19 +31,20 @@ public class AdminCineplexService {
     }
 
     public void addCineplex(Cineplex cineplex) {
-        Admin.getCineplexes().put(cineplex.getName(), cineplex);
+//        dbController.getCineplexes().put(cineplex.getName(), cineplex);
+        dbController.addCineplex(cineplex);
     }
 
     public void removeCineplex(String name) {
-        Admin.getCineplexes().remove(name);
+        dbController.removeCineplex(name);
     }
 
     public void addCinema(Cineplex cineplex, Cinema cinema) {
-        Admin.getCineplexes().get(cineplex.getName()).getCinemas().add(cinema);
+        dbController.addCinema(cineplex, cinema);
     }
 
     public void removeCinema(Cineplex cineplex, Cinema cinema) {
-        Admin.getCineplexes().get(cineplex.getName()).getCinemas().remove(cinema);
+        dbController.removeCinema(cineplex, cinema);
     }
 
     public void addShowTime(Movie movie, LocalDate dateOfMovie, LocalTime timeOfMovie, Cinema cinema,
@@ -55,7 +57,7 @@ public class AdminCineplexService {
     }
 
     public void addShowTime(Movie movie, LocalDate dateOfMovie, LocalTime timeOfMovie, Cinema cinema,
-                            Cineplex cineplex, Language language, Subtitle subtitle, MovieType movieType) {
+                            Cineplex cineplex, MovieEnums.Language language, MovieEnums.Subtitle subtitle, MovieEnums.MovieType movieType) {
 
         ShowTime newShowTime = new ShowTime(movie, dateOfMovie, timeOfMovie, cinema.copyCinemaLayout(),
                 cineplex, cinema, language, subtitle, movieType);

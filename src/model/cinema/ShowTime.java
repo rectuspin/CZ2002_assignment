@@ -1,15 +1,14 @@
 package model.cinema;
 
-import model.movie.Language;
+import model.Model;
 import model.movie.Movie;
-import model.movie.MovieType;
-import model.movie.Subtitle;
+import model.movie.MovieEnums;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
 
-public class ShowTime {
+public class ShowTime implements Model {
 //    private UUID uuid;
 
     private Movie movie;
@@ -24,14 +23,14 @@ public class ShowTime {
 
     private Cineplex cineplex;
 
-    private Language language;
+    private MovieEnums.Language language;
 
-    private Subtitle subtitle;
+    private MovieEnums.Subtitle subtitle;
 
-    private MovieType movieType;
+    private MovieEnums.MovieType movieType;
 
     public ShowTime(Movie movie, LocalDate dateOfMovie, LocalTime timeOfMovie, HashMap<Character, Seat[]> seatLayout,
-                    Cineplex cineplex, Cinema cinema, Language language, Subtitle subtitle, MovieType movieType) {
+                    Cineplex cineplex, Cinema cinema, MovieEnums.Language language, MovieEnums.Subtitle subtitle, MovieEnums.MovieType movieType) {
         this.movie = movie;
         this.dateOfMovie = dateOfMovie;
         this.timeOfMovie = timeOfMovie;
@@ -49,9 +48,9 @@ public class ShowTime {
         this.timeOfMovie = timeOfMovie;
         this.seatLayout = seatLayout;
         this.cinema = cinema;
-        this.language = Language.ENGLISH;
-        this.subtitle = Subtitle.None;
-        this.movieType = MovieType.DIGITAL;
+        this.language = MovieEnums.Language.ENGLISH;
+        this.subtitle = MovieEnums.Subtitle.None;
+        this.movieType = MovieEnums.MovieType.DIGITAL;
     }
 
     public Movie getMovie() {
@@ -102,27 +101,27 @@ public class ShowTime {
         this.cineplex = cineplex;
     }
 
-    public Language getLanguage() {
+    public MovieEnums.Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(MovieEnums.Language language) {
         this.language = language;
     }
 
-    public Subtitle getSubtitle() {
+    public MovieEnums.Subtitle getSubtitle() {
         return subtitle;
     }
 
-    public void setSubtitle(Subtitle subtitle) {
+    public void setSubtitle(MovieEnums.Subtitle subtitle) {
         this.subtitle = subtitle;
     }
 
-    public MovieType getMovieType() {
+    public MovieEnums.MovieType getMovieType() {
         return movieType;
     }
 
-    public void setMovieType(MovieType movieType) {
+    public void setMovieType(MovieEnums.MovieType movieType) {
         this.movieType = movieType;
     }
 

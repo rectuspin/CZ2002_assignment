@@ -1,11 +1,12 @@
 package model.transaction;
 
+import model.Model;
 import model.cinema.Cineplex;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 
-public class CineplexBookings {
+public class CineplexBookings implements Model {
     private Cineplex cineplex;
     private HashMap<LocalDate, Booking> bookings;
 
