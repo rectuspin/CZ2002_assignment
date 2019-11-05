@@ -49,10 +49,9 @@ public class AdminCineplexService {
 
     public void addShowTime(Movie movie, LocalDate dateOfMovie, LocalTime timeOfMovie, Cinema cinema,
                             Cineplex cineplex) {
-
         ShowTime newShowTime = new ShowTime(movie, dateOfMovie, timeOfMovie, cinema.copyCinemaLayout(),
                 cineplex, cinema);
-        Admin.getCineplexes().get(cineplex.getName()).getShowTimes().get(dateOfMovie).add(newShowTime);
+        dbController.addShowTimes(cineplex, dateOfMovie, newShowTime);
 
     }
 
@@ -62,23 +61,16 @@ public class AdminCineplexService {
         ShowTime newShowTime = new ShowTime(movie, dateOfMovie, timeOfMovie, cinema.copyCinemaLayout(),
                 cineplex, cinema, language, subtitle, movieType);
 
-
-        Admin.getCineplexes().get(cineplex.getName()).getShowTimes().get(dateOfMovie).add(newShowTime);
+        dbController.addShowTimes(cineplex, dateOfMovie, newShowTime);
     }
 
     public void removeShowTime(Movie movie, LocalDate dateOfMovie, LocalTime timeOfMovie, Cinema cinema,
                                Cineplex cineplex) {
-        ArrayList<ShowTime> showTimes = Admin.getCineplexes().get(cineplex.getName()).getShowTimes().get(dateOfMovie);
-        for (ShowTime showTime : showTimes) {
-            if (showTime.getMovie() == movie && showTime.getTimeOfMovie() == timeOfMovie &&
-                    showTime.getCinema() == cinema) {
-                Admin.getCineplexes().get(cineplex.getName()).getShowTimes().get(dateOfMovie).remove(showTime);
-            }
-        }
+        dbController.removeShowTimes(movie, dateOfMovie, timeOfMovie,cinema, cineplex);
     }
 
     public HashMap getCineplexes() {
-        return Admin.getCineplexes();
+        return dbController.getCineplexes();
     }
 
 

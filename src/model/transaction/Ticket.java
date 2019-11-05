@@ -1,12 +1,13 @@
 package model.transaction;
 
-import controller.TicketPriceController;
 import model.Model;
 import model.cinema.CinemaType;
 import model.movie.Movie;
 import model.movie.MovieEnums;
+import service.TicketPriceService;
 
-import static controller.TicketPriceController.getBasePrice;
+import static service.TicketPriceService.getBasePrice;
+
 
 public class Ticket implements Model {
     private Movie movie;
@@ -26,9 +27,9 @@ public class Ticket implements Model {
         ticketPrice += cinemaType.getTicketPrice();
         ticketPrice += movieType.getTicketPrice();
         if (isHoliday) {
-            ticketPrice += TicketPriceController.getPublicHolidayCharges();
+            ticketPrice += TicketPriceService.getPublicHolidayCharges();
         } else if (isWeekend) {
-            ticketPrice += TicketPriceController.getWeekendCharges();
+            ticketPrice += TicketPriceService.getWeekendCharges();
         }
         return ticketPrice;
     }

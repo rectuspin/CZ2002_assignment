@@ -13,8 +13,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-import static controller.TicketPriceController.isHoliday;
-import static controller.TicketPriceController.isWeekend;
+import static service.TicketPriceService.isHoliday;
+import static service.TicketPriceService.isWeekend;
+
 
 public class Booking implements Model {
     private double price;
