@@ -3,26 +3,31 @@ package controller;
 import model.account.Admin;
 import model.account.Customer;
 import model.cinema.Cineplex;
-import model.movie.Review;
 import model.transaction.Booking;
-import model.transaction.Ticket;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SerializedDB implements Serializable {
+    private static SerializedDB serializedDB = null;
     private HashMap<String, Cineplex> cineplexes;
     private ArrayList<Admin> admins;
     private ArrayList<Customer> customers;
     private ArrayList<Booking> bookings;
+    private ArrayList<LocalDate> publicHolidayDates;
+    private double publicHolidayCharges;
+    private double weekendCharges;
+    private double basePrice;
 
-    public SerializedDB() {
+
+    public SerializedDB(){
         admins = new ArrayList<>();
         cineplexes = new HashMap<>();
         customers = new ArrayList<>();
-
         bookings = new ArrayList<>();
+        publicHolidayDates = new ArrayList<>();
     }
 
     protected HashMap<String, Cineplex> getCineplexes() {
@@ -33,6 +38,9 @@ public class SerializedDB implements Serializable {
         this.cineplexes = cineplexes;
     }
 
+    protected void addCineplexes(Cineplex cineplex){
+        this.cineplexes.put(cineplex.getName(), cineplex);
+    }
     protected ArrayList<Admin> getAdmins() {
         return admins;
     }
@@ -49,22 +57,6 @@ public class SerializedDB implements Serializable {
         this.customers = customers;
     }
 
-    protected ArrayList<Ticket> getTickets() {
-        return tickets;
-    }
-
-    protected void setTickets(ArrayList<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    protected ArrayList<Review> getReviews() {
-        return reviews;
-    }
-
-    protected void setReviews(ArrayList<Review> reviews) {
-        this.reviews = reviews;
-    }
-
     protected ArrayList<Booking> getBookings() {
         return bookings;
     }
@@ -72,4 +64,28 @@ public class SerializedDB implements Serializable {
     protected void setBookings(ArrayList<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    public double getPublicHolidayCharges(){ return publicHolidayCharges; }
+
+    public double getWeekendCharges(){ return weekendCharges;}
+
+    public double getBasePrice(){ return basePrice; }
+
+    public ArrayList<LocalDate> getPublicHolidayDates(){ return publicHolidayDates; }
+
+    public void setTicketPricing(ArrayList<LocalDate> publicHolidayDates, double publicHolidayCharges, double weekendCharges, double basePrice){
+        this.publicHolidayCharges = publicHolidayCharges;
+        this.publicHolidayDates = publicHolidayDates;
+        this.weekendCharges = weekendCharges;
+        this.basePrice = basePrice;
+    }
+
+    public static SerializedDB getInstance()
+    {
+        if (serializedDB == null)
+            serializedDB = new SerializedDB();
+
+        return serializedDB;
+    }
+
 }
