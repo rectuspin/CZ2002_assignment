@@ -1,11 +1,13 @@
 package controller;
 
+import model.AgeGroup;
 import model.cinema.Cinema;
 import model.cinema.CinemaType;
 import model.cinema.Cineplex;
 import model.cinema.ShowTime;
 import model.movie.Movie;
 import model.movie.MovieEnums;
+import model.transaction.Booking;
 
 import java.io.File;
 import java.io.IOException;
@@ -145,6 +147,14 @@ public class DBController {
             i++;
         }
 
+        //Loads all the cinema type prices and information into the application
+        List ageGroup = dbController.readDB("ageGroupDiscountPriceDB");
+        i = 0;
+        for (AgeGroup group : AgeGroup.values()) {
+            group.setTicketPrice((double) ageGroup.get(i));
+            i++;
+        }
+
     }
 
     public void saveTicketPriceInfoDatabase() throws IOException {
@@ -169,8 +179,26 @@ public class DBController {
             cinemaType.add(c.getTicketPrice());
         }
         dbController.updateDB(cinemaType, "CinemaTypePriceDB");
+
+        //Saves all the different cinema type pricing into the database
+        List ageGroup = new ArrayList();
+        for (AgeGroup group : AgeGroup.values()){
+            ageGroup.add(group.getTicketPrice());
+        }
+        dbController.updateDB(ageGroup, "ageGroupDiscountPriceDB");
     }
 
+    public void addSales(Booking booking){
+        serializedDB.addSales(booking.getMovie().getTitle(), booking.getTickets().size());
+    }
+
+    public HashMap<String, Integer> getSales(){
+        return serializedDB.getSales();
+    }
+
+    public Integer getSalesFigure(String movieName){
+        return serializedDB.getSalesFigure(movieName);
+    }
 }
 
 

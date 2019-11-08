@@ -1,5 +1,6 @@
 package view;
 
+import model.AgeGroup;
 import model.cinema.CinemaType;
 import model.movie.MovieEnums;
 
@@ -36,8 +37,10 @@ public class TicketPriceView {
                     System.out.print("\n");
                     cinemaTypeSettings();
                 } else if (opt == 4) {
-                    publicHolidaySettings();
+                    citizenCategorySettings();
                 } else if (opt == 5) {
+                    publicHolidaySettings();
+                } else if (opt == 6) {
                     return;
                 }
             }catch (Exception e){
@@ -84,6 +87,29 @@ public class TicketPriceView {
                 System.out.println("[System: Cinema Type Charges Set Successfully]");
             }
             else if (opt == CinemaType.values().length+1){
+                return;
+            }
+            else{
+                System.out.println("[System: Invalid Input]");
+            }
+        }
+    }
+
+    //Age Group Settings
+    //Settings function for different age group charges
+    public static void citizenCategorySettings(){
+        while (true) {
+            citizenCategoryMenu();   //Display each citizen category to set additional charges
+            Scanner in = new Scanner(System.in);
+            System.out.print("Option: ");
+            int opt = in.nextInt();   //Select an option of which  citizen category to be selected
+            if (0 < opt && opt <= AgeGroup.values().length-1) {
+                System.out.print("Discount Amount: ");
+                double discount = in.nextDouble();   //Input the amount for the extra charges
+                setAgeGroupCharges(opt, discount);   //Sets the charges for each citizen category
+                System.out.println("[System: Special Citizen Discounts Set Successfully]");
+            }
+            else if (opt == AgeGroup.values().length){
                 return;
             }
             else{

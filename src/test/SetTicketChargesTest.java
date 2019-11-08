@@ -14,7 +14,13 @@ public class SetTicketChargesTest {
         DBService.createDB("MovieTypePriceDB");
         DBService.createDB("TicketPriceInfoDB");*/
         //Implement it at the code where the program is just starting up
-        DBService.loadTicketPriceInfoDatabase();
+        try {
+            DBService.loadTicketPriceInfoDatabase();
+        }catch(Exception e){
+            ticketPriceView();
+            DBService.saveTicketPriceInfoDatabase();
+            return;
+        }
 
         //Implement it at the Configure System Settings option at the admin module
         ticketPriceView();

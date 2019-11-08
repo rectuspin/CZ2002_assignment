@@ -1,5 +1,6 @@
 package test;
 
+import controller.DBController;
 import model.account.Admin;
 import model.cinema.Cinema;
 import model.cinema.Cineplex;

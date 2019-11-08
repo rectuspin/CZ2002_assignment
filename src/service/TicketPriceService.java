@@ -1,5 +1,6 @@
 package service;
 
+import model.AgeGroup;
 import model.cinema.CinemaType;
 import model.movie.MovieEnums;
 
@@ -17,6 +18,8 @@ public class TicketPriceService {
     public static void setMovieTypeCharges(int opt, double prices){ MovieEnums.MovieType.values()[opt-1].setTicketPrice(prices); }
 
     public static void setCinemaTypeCharges(int opt, double prices){ CinemaType.values()[opt-1].setTicketPrice(prices); }
+
+    public static void setAgeGroupCharges(int opt, double prices){ AgeGroup.values()[opt].setTicketPrice(prices);}
 
     public static void setPublicHolidayCharges(double charges){ publicHolidayCharges = charges; }
 
