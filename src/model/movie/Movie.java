@@ -20,7 +20,7 @@ public class Movie implements Model {
     private ArrayList<Review> reviews;
 
     public Movie(String title, String director, ArrayList<String> cast, String synopsis) {
-        this.uuid = UUID.fromString(title);
+        //this.uuid = UUID.fromString(title); Error in this code
         this.title = title;
         this.director = director;
         this.cast = cast;

@@ -1,5 +1,6 @@
 package model.transaction;
 
+import model.AgeGroup;
 import model.Model;
 import model.account.Customer;
 import model.cinema.Cinema;
@@ -30,8 +31,6 @@ public class Booking implements Model {
     private Seat[] seats;
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
-    private float discount = 0;
-
     public Booking(LocalDate dateOfBooking, LocalTime timeOfBooking, ShowTime showTime, Seat[] seats, Customer customer) {
         this.dateOfBooking = dateOfBooking;
         this.timeOfBooking = timeOfBooking;
@@ -41,10 +40,19 @@ public class Booking implements Model {
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("hhmm");
         this.transactionID = "CUS" + this.dateOfBooking.format(dateFormat) + this.timeOfBooking.format(timeFormat);
         this.customer = customer;
+        this.movie = this.showTime.getMovie();
+        this.cinema = this.showTime.getCinema();
+        this.cineplex = this.showTime.getCineplex();
     }
 
     public void makeBooking() {
         tickets.add(new Ticket(movie, showTime.getMovieType(), cinema.getCinemaType()));
+    }
+
+    public void makeBooking(AgeGroup ageGroup) {
+        Ticket ticket = new Ticket(movie, showTime.getMovieType(), cinema.getCinemaType());
+        ticket.setAgeGroup(ageGroup);
+        tickets.add(ticket);
     }
 
     public ArrayList<Ticket> getTickets() {
@@ -52,8 +60,9 @@ public class Booking implements Model {
     }
 
     public double getPrice(LocalDate date) {
+        price = 0;
         for (Ticket ticket : tickets) {
-            price += ticket.getTicketCharges(showTime.getMovieType(), cinema.getCinemaType(), isHoliday(date), isWeekend(date));
+            price += ticket.getTicketCharges(isHoliday(date), isWeekend(date));
         }
         return price;
     }
@@ -63,6 +72,14 @@ public class Booking implements Model {
 
     public void setDateOfBooking(LocalDate dateOfBooking) {
         this.dateOfBooking = dateOfBooking;
+    }
+
+    public LocalTime getTimeOfBooking() {
+        return timeOfBooking;
+    }
+
+    public void setTimeOfBooking(LocalTime timeOfBooking) {
+        this.timeOfBooking = timeOfBooking;
     }
 
     public Cineplex getCineplex() {
@@ -97,13 +114,6 @@ public class Booking implements Model {
         this.seats = seats;
     }
 
-    public float getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(float discount) {
-        this.discount = discount;
-    }
-
+    public String getTransactionID(){return transactionID;}
 
 }

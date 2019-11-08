@@ -3,9 +3,11 @@ package controller;
 import model.account.Admin;
 import model.account.Customer;
 import model.cinema.Cineplex;
+import model.movie.Movie;
 import model.transaction.Booking;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,10 +15,12 @@ import java.util.HashMap;
 public class SerializedDB implements Serializable {
     private static SerializedDB serializedDB = null;
     private HashMap<String, Cineplex> cineplexes;
+    private ArrayList<Movie> movies;
     private ArrayList<Admin> admins;
     private ArrayList<Customer> customers;
     private ArrayList<Booking> bookings;
     private ArrayList<LocalDate> publicHolidayDates;
+    private HashMap<String, Integer> sales;
     private double publicHolidayCharges;
     private double weekendCharges;
     private double basePrice;
@@ -25,14 +29,18 @@ public class SerializedDB implements Serializable {
     public SerializedDB(){
         admins = new ArrayList<>();
         cineplexes = new HashMap<>();
+        movies = new ArrayList<>();
         customers = new ArrayList<>();
         bookings = new ArrayList<>();
         publicHolidayDates = new ArrayList<>();
+        sales = new HashMap<>();
     }
 
-    protected HashMap<String, Cineplex> getCineplexes() {
+    public HashMap<String, Cineplex> getCineplexes() {
         return cineplexes;
     }
+
+    public ArrayList<Movie> getMovies(){ return movies;}
 
     protected void setCineplexes(HashMap<String, Cineplex> cineplexes) {
         this.cineplexes = cineplexes;
@@ -88,4 +96,15 @@ public class SerializedDB implements Serializable {
         return serializedDB;
     }
 
+    public void addSales(String movieName, int numOfTickets){
+        sales.put(movieName, numOfTickets);
+    }
+
+    public HashMap<String, Integer> getSales(){
+        return sales;
+    }
+
+    public Integer getSalesFigure(String movieName){
+        return sales.get(movieName);
+    }
 }
